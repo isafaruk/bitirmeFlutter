@@ -3,6 +3,7 @@ import 'package:bitirme5/screens/home_page.dart';
 import 'package:bitirme5/screens/login_page.dart';
 import 'package:bitirme5/services/auth.dart';
 import 'package:bitirme5/shared/constants.dart';
+import 'package:bitirme5/shared/loading.dart';
 import 'package:bitirme5/shared/state.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _registerFormKey = GlobalKey<FormState>();
 
+  bool loading = false;
+  String error = '';
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
@@ -37,7 +40,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading
+        ? Loading()
+        : Scaffold(
         appBar: AppBar(
           title: Text("Kayıt Ol"),
         ),
@@ -103,15 +108,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       textColor: Colors.white,
                       onPressed: () async {
                         if (_registerFormKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
                           try {
-                            final User user =
+                            final User? user =
                                 (await _auth.registerWithEmailAndPass(
                                     _nameController.text,
                                     _emailController.text,
                                     _passController.text));
                             if(user != null){
-                              Provider.of<GlobalState>(context, listen: false)
-                                  .updateIsAuth(true);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -119,15 +125,30 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               );
                             }else{
-
+                              setState(() {
+                                error = 'Bilgilerini kontrol ediniz!';
+                                loading = false;
+                              });
                             }
-
                           } catch (e) {
                             print("hata oluştu " + e.toString());
                           }
                         }
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    error,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
                   ),
                   Text("Hesabınız var mı?"),
                   FlatButton(

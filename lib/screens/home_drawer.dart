@@ -8,18 +8,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class HomeDraver extends StatelessWidget {
   final _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    final bool isAuth = user != null;
-    String email= "";
-    if(isAuth){
+    bool isAuth = user != null;
+    String email = "";
+    if (isAuth) {
       email = user.email!;
-    }else{
+    } else {
       email = "anonim";
     }
     return Drawer(
@@ -30,11 +29,9 @@ class HomeDraver extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text("$email}",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24
-              ),
+            child: Text(
+              "$email",
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
             ListTile(
@@ -44,8 +41,7 @@ class HomeDraver extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> LoginPage()
-                  ),
+                  MaterialPageRoute(builder: (context) => LoginPage()),
                 );
               },
             ),
@@ -56,8 +52,7 @@ class HomeDraver extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> RegisterPage()
-                  ),
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
                 );
               },
             ),
@@ -66,18 +61,14 @@ class HomeDraver extends StatelessWidget {
               title: Text("Çıkış Yap"),
               onTap: () async {
                 await _auth.signOut();
-                Provider.of<GlobalState>(context,listen: false)
-                  .updateIsAuth(false);
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> HomePage()
-                  ),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
-
-        ],
+          ],
       ),
     );
   }
