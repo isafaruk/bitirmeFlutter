@@ -1,9 +1,11 @@
 import 'package:bitirme5/models/users.dart';
+import 'package:bitirme5/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _db = DatabaseService();
 
   Stream<Users?> get user {
     return _auth.authStateChanges()
@@ -32,6 +34,7 @@ class AuthService {
           .createUserWithEmailAndPassword(
           email: email,
           password: pass);
+      await _db.registerUser(credential.user!.uid, name, email);
       return credential.user!;
     }catch(e){
       print(e.toString());
