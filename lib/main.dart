@@ -1,9 +1,8 @@
+import 'package:bitirme5/models/post.dart';
 import 'package:bitirme5/models/users.dart';
 import 'package:bitirme5/screens/home_page.dart';
-import 'package:bitirme5/screens/login_page.dart';
-import 'package:bitirme5/screens/register_page.dart';
 import 'package:bitirme5/services/auth.dart';
-import 'package:bitirme5/shared/state.dart';
+import 'package:bitirme5/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -56,6 +55,10 @@ class _MyAppState extends State<MyApp> {
         Provider<String> (create: (context) => testProviderText),
         StreamProvider<User?>(create: (context) => test, initialData: null,),
         StreamProvider<Users?>.value(value: AuthService().user, initialData: null,),
+        StreamProvider<List<Post>?>(
+          create: (context) => DatabaseService().posts,
+          initialData: null,
+        )
       ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
