@@ -7,6 +7,7 @@ class Post {
   final String? content;
   final Timestamp? createdAt;
   final Timestamp? updatedAt;
+  final String? isHome;
 
   Post({
     this.id,
@@ -14,6 +15,7 @@ class Post {
     this.content,
     this.createdAt,
     this.updatedAt,
+    this.isHome,
   });
 
   Post.fromFirestore(DocumentSnapshot document)
@@ -21,7 +23,8 @@ class Post {
         title = document['title'],
         content = document['content'],
         createdAt = document['createdAt'],
-        updatedAt = document['updatedAt'];
+        updatedAt = document['updatedAt'],
+        isHome = document['isHome'];
 
 
 }

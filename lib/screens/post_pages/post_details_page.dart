@@ -1,15 +1,15 @@
 import 'package:bitirme5/models/post.dart';
 import 'package:flutter/material.dart';
 
-class ShowPostPage extends StatefulWidget {
+class PostDetailsPage extends StatefulWidget {
   final Post post;
-  const ShowPostPage({Key? key, required this.post}) : super(key: key);
+  const PostDetailsPage({Key? key, required this.post}) : super(key: key);
 
   @override
-  _ShowPostPageState createState() => _ShowPostPageState();
+  _PostDetailsPageState createState() => _PostDetailsPageState();
 }
 
-class _ShowPostPageState extends State<ShowPostPage> {
+class _PostDetailsPageState extends State<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +31,7 @@ class _ShowPostPageState extends State<ShowPostPage> {
               "Content :" + widget.post.content!,
             ),
           ),
-        ));
+        )
+    );
   }
 }

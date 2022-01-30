@@ -1,7 +1,8 @@
 import 'package:bitirme5/models/post.dart';
-import 'package:bitirme5/screens/edit_post_page.dart';
-import 'package:bitirme5/screens/new_post_page.dart';
-import 'package:bitirme5/screens/show_post_page.dart';
+import 'package:bitirme5/screens/post_pages/edit_post_page.dart';
+import 'package:bitirme5/screens/post_pages/new_post_page.dart';
+import 'package:bitirme5/screens/post_pages/post_details_page.dart';
+import 'package:bitirme5/screens/post_pages/show_post_page.dart';
 import 'package:bitirme5/services/database.dart';
 import 'package:bitirme5/shared/loading.dart';
 import 'package:email_validator/email_validator.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class MyPosts extends StatefulWidget {
   final user;
-  MyPosts({Key? key, @required this.user}) : super(key: key);
+  MyPosts({Key? key, required this.user}) : super(key: key);
 
   @override
   _MyPostsState createState() => _MyPostsState();
@@ -72,7 +73,7 @@ class _MyPostsState extends State<MyPosts> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ShowPostPage(post: posts[index]),
+                        builder: (context) => PostDetailsPage(post: posts[index]),
                       ),
                     );
                   },

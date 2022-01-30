@@ -1,8 +1,9 @@
 
 import 'package:bitirme5/screens/home_page.dart';
-import 'package:bitirme5/screens/login_page.dart';
-import 'package:bitirme5/screens/my_post.dart';
-import 'package:bitirme5/screens/register_page.dart';
+import 'package:bitirme5/screens/users_page/login_page.dart';
+import 'package:bitirme5/screens/users_page/my_post.dart';
+import 'package:bitirme5/screens/users_page/profile_page.dart';
+import 'package:bitirme5/screens/users_page/register_page.dart';
 import 'package:bitirme5/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,19 @@ class HomeDraver extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text(
-              "$email",
-              style: TextStyle(color: Colors.white, fontSize: 24),
+            child: ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text(
+                "$email",
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+              onTap: (){
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
             ),
           ),
           if (!isAuth) ...[

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyD2VchBW0u91h_vR2nh94UYCs2nzrYkDZ8",
@@ -32,7 +33,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   bool isAuth = false;
-  String testProviderText = "Merhaba Prov";
 
   Stream<User?> test = FirebaseAuth.instance.authStateChanges();
 
@@ -52,7 +52,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers:[
-        Provider<String> (create: (context) => testProviderText),
         StreamProvider<User?>(create: (context) => test, initialData: null,),
         StreamProvider<Users?>.value(value: AuthService().user, initialData: null,),
         StreamProvider<List<Post>?>(

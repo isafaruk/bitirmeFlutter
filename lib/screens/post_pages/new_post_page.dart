@@ -12,9 +12,12 @@ class NewPostPage extends StatefulWidget {
   _NewPostPageState createState() => _NewPostPageState();
 }
 
+enum SingingCharacter { arkadas, ev }
+
 class _NewPostPageState extends State<NewPostPage> {
   final _newPostFormKey = GlobalKey<FormState>();
 
+  SingingCharacter? _character;
   bool loading = false;
   String error = '';
 
@@ -32,36 +35,56 @@ class _NewPostPageState extends State<NewPostPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: Text("yeni post"),
+      appBar: AppBar(
+        title: Text("yeni post"),
       ),
-      body:Container(
-        padding : const EdgeInsets.all(20.0),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Form(
             key: _newPostFormKey,
             child: Column(
               children: <Widget>[
+                RadioListTile<SingingCharacter>(
+                  title: Text("Ev arkadaşı arıyorum"),
+                  value: SingingCharacter.arkadas,
+                  groupValue: _character,
+                  onChanged: (value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                ),
+                RadioListTile<SingingCharacter>(
+                  title: Text("Ev arıyorum"),
+                  value: SingingCharacter.ev,
+                  groupValue: _character,
+                  onChanged: (value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                ),
                 TextFormField(
-                  decoration:
-                  textInputDecoration.copyWith(hintText: 'başlık'),
+                  decoration: textInputDecoration.copyWith(hintText: 'başlık'),
                   controller: _titleController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Lütfen başlık giriniz";
-                    }else{
+                    } else {
                       return null;
                     }
                   },
                 ),
                 TextFormField(
-                  decoration:
-                  textInputDecoration.copyWith(hintText: 'içerik'),
+                  decoration: textInputDecoration.copyWith(hintText: 'içerik'),
                   controller: _contentController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Lütfen içerik giriniz";
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -79,15 +102,11 @@ class _NewPostPageState extends State<NewPostPage> {
                           });
                           try {
                             // Log in user by firebase auth
-                            final user = Provider.of<User?>(
-                                context,
-                                listen:false
-                            );
-                            dynamic result =
-                            await _db.createPost(
-                                user!.uid,
-                                _titleController.text,
-                                _contentController.text);
+                            print(_character.toString());
+                            final user =
+                                Provider.of<User?>(context, listen: false);
+                            dynamic result = await _db.createPost(user!.uid,
+                                _titleController.text, _contentController.text, _character.toString());
 
                             if (result != null) {
                               Navigator.push(
@@ -116,10 +135,8 @@ class _NewPostPageState extends State<NewPostPage> {
                       color: Colors.red,
                       fontSize: 14.0,
                     )),
-
               ],
             ),
-
           ),
         ),
       ),

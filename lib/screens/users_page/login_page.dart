@@ -1,5 +1,5 @@
 import 'package:bitirme5/screens/home_page.dart';
-import 'package:bitirme5/screens/register_page.dart';
+import 'package:bitirme5/screens/users_page/register_page.dart';
 import 'package:bitirme5/services/auth.dart';
 import 'package:bitirme5/shared/constants.dart';
 import 'package:bitirme5/shared/loading.dart';
