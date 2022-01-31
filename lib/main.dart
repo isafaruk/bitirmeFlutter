@@ -1,3 +1,4 @@
+import 'package:bitirme5/models/apart.dart';
 import 'package:bitirme5/models/post.dart';
 import 'package:bitirme5/models/users.dart';
 import 'package:bitirme5/screens/home_page.dart';
@@ -11,15 +12,10 @@ import 'package:provider/provider.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyD2VchBW0u91h_vR2nh94UYCs2nzrYkDZ8",
-          appId: "1:109456288248:android:3b4e1b3cd3cbcff5ad4e0d",
-          messagingSenderId: "109456288248",
-          projectId: "bitirme5"));
-  runApp(const MyApp());
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
 
+  runApp(const MyApp());
 }
 
 
@@ -45,8 +41,8 @@ class _MyAppState extends State<MyApp> {
         print("değer " + isAuth.toString());
       });
     });
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +52,10 @@ class _MyAppState extends State<MyApp> {
         StreamProvider<Users?>.value(value: AuthService().user, initialData: null,),
         StreamProvider<List<Post>?>(
           create: (context) => DatabaseService().posts,
+          initialData: null,
+        ),
+        StreamProvider<List<Apart>?>(
+          create: (context) => DatabaseService().aparts,
           initialData: null,
         )
       ],

@@ -20,7 +20,7 @@ class AuthService {
           .signInWithEmailAndPassword(
           email: email,
           password: pass));
-      return credential.user!;
+      return  credential.user!;
     }catch(e){
       print(e.toString());
       return null;

@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     margin: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                     child: RaisedButton(
-                      child: Text("Register"),
+                      child: Text("Kayıt Ol"),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () async {

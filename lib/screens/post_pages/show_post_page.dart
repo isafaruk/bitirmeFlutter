@@ -53,7 +53,7 @@ class _ShowPostPageState extends State<ShowPostPage> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            "Content :" + posts[index].content!,
+                            posts[index].content!,
                           ),
                           onTap: () {
                             Navigator.push(

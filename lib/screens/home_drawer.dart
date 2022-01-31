@@ -2,7 +2,6 @@
 import 'package:bitirme5/screens/home_page.dart';
 import 'package:bitirme5/screens/users_page/login_page.dart';
 import 'package:bitirme5/screens/users_page/my_post.dart';
-import 'package:bitirme5/screens/users_page/profile_page.dart';
 import 'package:bitirme5/screens/users_page/register_page.dart';
 import 'package:bitirme5/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,7 +19,7 @@ class HomeDraver extends StatelessWidget {
     if (isAuth) {
       email = user.email!;
     } else {
-      email = "anonim";
+      email = "Anonim";
     }
     return Drawer(
       child: ListView(
@@ -36,15 +35,9 @@ class HomeDraver extends StatelessWidget {
                 "$email",
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
-              onTap: (){
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
-              },
             ),
           ),
+
           if (!isAuth) ...[
             InkWell(
               child: ListTile(
@@ -76,7 +69,7 @@ class HomeDraver extends StatelessWidget {
             InkWell(
               child: ListTile(
                 leading: Icon(Icons.exit_to_app),
-                title: Text("Postlarım"),
+                title: Text("İlanlarım"),
                 onTap: () async {
                   Navigator.pop(context);
                   Navigator.push(

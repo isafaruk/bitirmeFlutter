@@ -14,33 +14,38 @@ class EditPostPage extends StatefulWidget {
   @override
   _EditPostPageState createState() => _EditPostPageState();
 }
-
+enum SingingCharacter { arkadas, ev }
 class _EditPostPageState extends State<EditPostPage> {
   final _editPostFormKey = GlobalKey<FormState>();
 
+  SingingCharacter? _character;
   bool loading= false;
   String error ="";
 
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
+  final _adressController = TextEditingController();
 
   @override
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
+    _adressController.dispose();
     super.dispose();
   }
   @override
   void initState() {
     _titleController.text=widget.post.title!;
     _contentController.text=widget.post.content!;
+    _contentController.text=widget.post.content!;
+    _adressController.text=widget.post.adress!;
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("post düzenleme"),
+      appBar: AppBar(title: Text("İlan Düzenleme"),
       ),
       body:Container(
         padding : const EdgeInsets.all(20.0),
@@ -49,9 +54,29 @@ class _EditPostPageState extends State<EditPostPage> {
             key: _editPostFormKey,
             child: Column(
               children: <Widget>[
+                RadioListTile<SingingCharacter>(
+                  title: Text("Ev arkadaşı arıyorum"),
+                  value: SingingCharacter.arkadas,
+                  groupValue: _character,
+                  onChanged: (value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                ),
+                RadioListTile<SingingCharacter>(
+                  title: Text("Ev arıyorum"),
+                  value: SingingCharacter.ev,
+                  groupValue: _character,
+                  onChanged: (value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                ),
                 TextFormField(
                   decoration:
-                  textInputDecoration.copyWith(hintText: 'başlık'),
+                  textInputDecoration.copyWith(hintText: 'Başlık'),
                   controller: _titleController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -63,8 +88,20 @@ class _EditPostPageState extends State<EditPostPage> {
                 ),
                 TextFormField(
                   decoration:
-                  textInputDecoration.copyWith(hintText: 'içerik'),
+                  textInputDecoration.copyWith(hintText: 'Mesaj'),
                   controller: _contentController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Lütfen içerik giriniz";
+                    }else{
+                      return null;
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration:
+                  textInputDecoration.copyWith(hintText: 'Adres'),
+                  controller: _adressController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Lütfen içerik giriniz";
@@ -76,7 +113,7 @@ class _EditPostPageState extends State<EditPostPage> {
                 Container(
                   margin: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                   child: RaisedButton(
-                      child: Text("Postu güncelle"),
+                      child: Text("İlanı güncelle"),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () async {
@@ -94,7 +131,9 @@ class _EditPostPageState extends State<EditPostPage> {
                             await DatabaseService(uid: user!.uid).editPost(
                                 widget.post.id!,
                                 _titleController.text,
-                                _contentController.text);
+                                _contentController.text,
+                                _character.toString(),
+                                _adressController.text);
 
                             if (result != null) {
                               Navigator.push(

@@ -23,6 +23,8 @@ class _NewPostPageState extends State<NewPostPage> {
 
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
+  final _adressController = TextEditingController();
+  final _contactController = TextEditingController();
 
   final _db = DatabaseService();
 
@@ -30,15 +32,15 @@ class _NewPostPageState extends State<NewPostPage> {
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
+    _adressController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("yeni post"),
+        title: Text("Yeni İlan"),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
@@ -68,7 +70,7 @@ class _NewPostPageState extends State<NewPostPage> {
                   },
                 ),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'başlık'),
+                  decoration: textInputDecoration.copyWith(hintText: 'Başlık'),
                   controller: _titleController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -79,7 +81,7 @@ class _NewPostPageState extends State<NewPostPage> {
                   },
                 ),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'içerik'),
+                  decoration: textInputDecoration.copyWith(hintText: 'Mesaj'),
                   controller: _contentController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -89,10 +91,32 @@ class _NewPostPageState extends State<NewPostPage> {
                     }
                   },
                 ),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Adres'),
+                  controller: _adressController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Lütfen adres giriniz";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'İletişim'),
+                  controller: _contactController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Lütfen iletişim adresi giriniz";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                   child: RaisedButton(
-                      child: Text("Postu kaydet"),
+                      child: Text("İlanı kaydet"),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () async {
@@ -102,11 +126,14 @@ class _NewPostPageState extends State<NewPostPage> {
                           });
                           try {
                             // Log in user by firebase auth
-                            print(_character.toString());
                             final user =
                                 Provider.of<User?>(context, listen: false);
-                            dynamic result = await _db.createPost(user!.uid,
-                                _titleController.text, _contentController.text, _character.toString());
+                            dynamic result = await _db.createPost(
+                                user!.uid,
+                                _titleController.text,
+                                _contentController.text,
+                                _character.toString(),
+                                _adressController.text,);
 
                             if (result != null) {
                               Navigator.push(

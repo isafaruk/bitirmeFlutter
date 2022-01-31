@@ -1,3 +1,4 @@
+import 'package:bitirme5/models/users.dart';
 import 'package:bitirme5/screens/home_page.dart';
 import 'package:bitirme5/screens/users_page/register_page.dart';
 import 'package:bitirme5/services/auth.dart';
@@ -24,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passController = TextEditingController();
 
   final _auth = AuthService();
+
   @override
   void dispose() {
     _emailController.dispose();
