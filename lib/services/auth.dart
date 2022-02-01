@@ -25,8 +25,8 @@ class AuthService {
       print(e.toString());
       return null;
     }
+  }
 
-}
   Future registerWithEmailAndPass(String name, String email, String pass) async{
     try{
       UserCredential credential = await FirebaseAuth

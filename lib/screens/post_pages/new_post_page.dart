@@ -23,7 +23,6 @@ class _NewPostPageState extends State<NewPostPage> {
 
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-  final _adressController = TextEditingController();
   final _contactController = TextEditingController();
 
   final _db = DatabaseService();
@@ -32,7 +31,7 @@ class _NewPostPageState extends State<NewPostPage> {
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
-    _adressController.dispose();
+    _contactController.dispose();
     super.dispose();
   }
 
@@ -92,17 +91,6 @@ class _NewPostPageState extends State<NewPostPage> {
                   },
                 ),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Adres'),
-                  controller: _adressController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Lütfen adres giriniz";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'İletişim'),
                   controller: _contactController,
                   validator: (value) {
@@ -133,7 +121,7 @@ class _NewPostPageState extends State<NewPostPage> {
                                 _titleController.text,
                                 _contentController.text,
                                 _character.toString(),
-                                _adressController.text,);
+                                _contactController.text,);
 
                             if (result != null) {
                               Navigator.push(

@@ -80,19 +80,9 @@ class DatabaseService {
       print("Hata oluştu: " + e.toString());
     }
   }
-  Future editProfile(String uid, String name) async {
-    try {
-      return await collectionReference.doc(uid).update({
-        "name": name,
-        "updatedAt": FieldValue.serverTimestamp(),
-      });
-    } catch (e) {
-      print('Hata oluştu!! : $e');
-    }
-  }
 
   Future createPost(String uid, String title, String content, String character,
-      String adress) async {
+      String contact) async {
     try {
       await collectionReference.doc(uid).collection("posts").doc().set({
         "title": title,
@@ -100,7 +90,7 @@ class DatabaseService {
         "createdAt": FieldValue.serverTimestamp(),
         "updatedAt": FieldValue.serverTimestamp(),
         "isHome": character,
-        "adress": adress,
+        "adress": contact,
       });
       return uid;
     } catch (e) {
@@ -109,14 +99,14 @@ class DatabaseService {
   }
 
   Future editPost(String id, String title, String content, String char,
-      String adress) async {
+      String contact) async {
     try {
       await collectionReference.doc(uid).collection('posts').doc(id).update({
         "title": title,
         "content": content,
         "updatedAt": FieldValue.serverTimestamp(),
         "isHome": char,
-        "adress": adress
+        "adress": contact
       });
       return uid;
     } catch (e) {

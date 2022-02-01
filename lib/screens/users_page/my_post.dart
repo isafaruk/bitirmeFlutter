@@ -21,7 +21,7 @@ class _MyPostsState extends State<MyPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyPosts'),
+        title: Text('İlanlarım'),
       ),
       body: StreamBuilder<List<Post>>(
         stream: DatabaseService(uid: widget.user.uid).individualPosts,

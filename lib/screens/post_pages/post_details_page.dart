@@ -46,7 +46,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             ),
             child: ListTile(
               title: Text(
-                "Adres: " + widget.post.adress!,
+                "İletişim: " + widget.post.adress!,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
 

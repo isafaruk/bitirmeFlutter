@@ -24,21 +24,20 @@ class _EditPostPageState extends State<EditPostPage> {
 
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-  final _adressController = TextEditingController();
+  final _contactController = TextEditingController();
 
   @override
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
-    _adressController.dispose();
+    _contactController.dispose();
     super.dispose();
   }
   @override
   void initState() {
     _titleController.text=widget.post.title!;
     _contentController.text=widget.post.content!;
-    _contentController.text=widget.post.content!;
-    _adressController.text=widget.post.adress!;
+    _contactController.text=widget.post.adress!;
     super.initState();
   }
   @override
@@ -100,8 +99,8 @@ class _EditPostPageState extends State<EditPostPage> {
                 ),
                 TextFormField(
                   decoration:
-                  textInputDecoration.copyWith(hintText: 'Adres'),
-                  controller: _adressController,
+                  textInputDecoration.copyWith(hintText: 'İletişim'),
+                  controller: _contactController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Lütfen içerik giriniz";
@@ -133,7 +132,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                 _titleController.text,
                                 _contentController.text,
                                 _character.toString(),
-                                _adressController.text);
+                                _contactController.text);
 
                             if (result != null) {
                               Navigator.push(
