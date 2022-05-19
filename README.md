@@ -5,7 +5,7 @@
 - Kullanıcı kayıt olma ve giriş yapma işlemleri yapıldı. 
 - Kullanıcı ilan atabiliyor. 
 - Apart ekleme işlemini admin yapabiliyor. 
-## Siradaki Güncellemeler
+## Sıradaki Güncellemeler
 1. Kullanıcıların apartlar ve kişiler hakkında yorum yapma özelliği eklenecek.
 2. Kullanıcı arasında mesajlaşma özelliği eklenecek. 
 
