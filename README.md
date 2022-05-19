@@ -4,7 +4,9 @@
 
 Displaying the apartments where students can stay and a mobile app where we can share posts to look for roommates. I used Google Firebase for database.
 
-Kullanıcı kayıt olma ve giriş yapma işlemleri yapıldı. Kullanıcı ilan atabiliyor. Admin girişi ile apart ekleme yapabiliyor. 
+*Kullanıcı kayıt olma ve giriş yapma işlemleri yapıldı. 
+*Kullanıcı ilan atabiliyor. 
+*Apart ekleme işlemini admin yapabiliyor. 
 ## Next Update
 1. Kullanıcıların apartlar ve kişiler hakkında yorum yapma özelliği eklenecek.
 2. Kullanıcı arasında mesajlaşma özelliği eklenecek. 
